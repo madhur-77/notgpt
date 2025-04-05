@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Comparison</title>
+    <style>
+        /* [Same CSS as before — unchanged for brevity] */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .traveler-type-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .traveler-tab {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 8px 16px;
+            margin-right: 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .traveler-tab.active {
+            background-color: #3DA5B6;
+            color: white;
+        }
+
+        .view-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .view-tab {
+            background-color: transparent;
+            border: none;
+            padding: 12px 20px;
+            margin-right: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            position: relative;
+        }
+
+        .view-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #3DA5B6;
+        }
+
+        .comparisons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .comparison-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #3DA5B6;
+            color: white;
+        }
+
+        .card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .traveler-type {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .experience-by {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+
+        .star {
+            color: #FFD700;
+            margin-right: 5px;
+        }
+
+        .card-body {
+            background-color: white;
+            color: #333;
+            padding: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .info-icon {
+            margin-right: 10px;
+            color: #666;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .info-content {
+            flex-grow: 1;
+        }
+
+        .info-label {
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 15px;
+        }
+
+        .highlight {
+            font-weight: 600;
+        }
+
+        .visit-list {
+            list-style: none;
+        }
+
+        .visit-list li {
+            margin-bottom: 5px;
+            padding-left: 5px;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .visit-list li::before {
+            content: '•';
+            position: absolute;
+            left: -10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="explore.html" class="back-button">
+                ← Back to destinations
+            </a>
+            <h1 id="main-heading">Comparing Travel Experiences</h1>
+            <p class="subtitle">Compare different travel styles based on real traveler experiences</p>
+        </header>
+        
+        <div class="traveler-type-tabs">
+            <button class="traveler-tab active">Solo Traveler</button>
+            <button class="traveler-tab">Solo Female Traveler</button>
+            <button class="traveler-tab">Budget Traveler</button>
+            <button class="traveler-tab">Family Travel</button>
+            <button class="traveler-tab">Luxury Travel</button>
+        </div>
+        
+        <div class="view-tabs">
+            <button class="view-tab active">Overview</button>
+            <button class="view-tab">Accommodations</button>
+            <button class="view-tab">Food & Dining</button>
+            <button class="view-tab">Must-Visit Places</button>
+            <button class="view-tab">Travel Tips</button>
+        </div>
+        
+        <div class="comparisons-grid" id="comparisons-grid">
+            <!-- Cards will be injected here -->
+        </div>
+    </div>
+    <footer style="background-color:#f0f4f8; padding: 40px 20px; text-align: center; border-top: 1px solid #ddd;">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <h2 style="color: #333; margin-bottom: 10px;">Wonderlust Canvas</h2>
+          <p style="color: #555; font-size: 15px; margin-bottom: 20px;">
+            Your personalized travel companion — explore places, discover food, and find the best stays, all in one place.
+          </p>
+          
+          <div style="margin-bottom: 20px;">
+            <p style="color: #777; margin: 5px;">Contact: wonderlustcanvas@example.com</p>
+            <p style="color: #777; margin: 5px;">Phone: +91 98765 43210</p>
+          </div>
+      
+          <div style="margin-bottom: 30px;">
+            <a href="#" style="margin: 0 10px; color: #4a90e2; text-decoration: none;">Facebook</a>
+            <a href="#" style="margin: 0 10px; color: #4a90e2; text-decoration: none;">Instagram</a>
+            <a href="#" style="margin: 0 10px; color: #4a90e2; text-decoration: none;">Twitter</a>
+          </div>
+      
+          <a href="subscription.html" style="background: linear-gradient(135deg, #4a90e2, #2171cd); color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+            Explore Premium
+          </a>
+      
+          <p style="margin-top: 30px; color: #aaa; font-size: 13px;">© 2025 Wonderlust Canvas. All rights reserved.</p>
+        </div>
+      </footer>
+      
+
+    <script>
+        const comparisons = {
+            "Bali": [
+                {
+                    type: "Solo Traveler",
+                    author: "Quinn Wilson",
+                    rating: 4.6,
+                    budget: "$1200 per person",
+                    duration: "7 days",
+                    stay: "Mid-range Hotel / Airbnb",
+                    mustVisit: ["Ubud Monkey Forest", "Tegallalang Rice Terraces", "Uluwatu Temple"]
+                },
+                {
+                    type: "Solo Female Traveler",
+                    author: "Avery Chen",
+                    rating: 4.2,
+                    budget: "$1050 per person",
+                    duration: "6 days",
+                    stay: "Female-friendly Hostels / Guesthouses",
+                    mustVisit: ["Ubud Art Market", "Bali Swing", "Sanur Beach"]
+                },
+                {
+                    type: "Budget Traveler",
+                    author: "Taylor Reed",
+                    rating: 4.4,
+                    budget: "$800 per person",
+                    duration: "8 days",
+                    stay: "Hostels / Budget Homestays",
+                    mustVisit: ["Kuta Beach", "Tanah Lot Temple", "Local Warungs (eateries)"]
+                }
+            ],
+            "Paris": [
+                {
+                    type: "Solo Traveler",
+                    author: "Jordan Parker",
+                    rating: 4.7,
+                    budget: "$1800 per person",
+                    duration: "5 days",
+                    stay: "Boutique Hotel",
+                    mustVisit: ["Eiffel Tower", "Louvre Museum", "Montmartre"]
+                },
+                {
+                    type: "Solo Female Traveler",
+                    author: "Sophie Laurent",
+                    rating: 4.5,
+                    budget: "$1650 per person",
+                    duration: "5 days",
+                    stay: "Mid-range Hotel / Airbnb",
+                    mustVisit: ["Musée d'Orsay", "Luxembourg Gardens", "Le Marais district"]
+                },
+                {
+                    type: "Budget Traveler",
+                    author: "Alex Thompson",
+                    rating: 4.2,
+                    budget: "$1200 per person",
+                    duration: "6 days",
+                    stay: "Hostel / Budget Hotel",
+                    mustVisit: ["Free Museum Days", "Canal Saint-Martin", "Père Lachaise Cemetery"]
+                }
+            ],
+            "Kyoto": [
+                {
+                    type: "Solo Traveler",
+                    author: "Riley Nakamura",
+                    rating: 4.8,
+                    budget: "$1500 per person",
+                    duration: "6 days",
+                    stay: "Ryokan / Mid-range Hotel",
+                    mustVisit: ["Fushimi Inari Shrine", "Arashiyama Bamboo Grove", "Kiyomizu-dera Temple"]
+                },
+                {
+                    type: "Solo Female Traveler",
+                    author: "Mei Lin",
+                    rating: 4.7,
+                    budget: "$1400 per person",
+                    duration: "5 days",
+                    stay: "Female-only Ryokan / Hotel",
+                    mustVisit: ["Gion District", "Philosopher's Path", "Nishiki Market"]
+                },
+                {
+                    type: "Budget Traveler",
+                    author: "Sam Yoshida",
+                    rating: 4.3,
+                    budget: "$900 per person",
+                    duration: "7 days",
+                    stay: "Capsule Hotel / Budget Hostel",
+                    mustVisit: ["Free Temple Gardens", "Kamogawa River", "Kyoto Imperial Palace"]
+                }
+            ]
+        };
+
+        function renderComparisons(destination) {
+            const grid = document.getElementById('comparisons-grid');
+            grid.innerHTML = '';
+
+            if (!comparisons[destination]) {
+                grid.innerHTML = '<p>No comparison data available for this destination.</p>';
+                return;
+            }
+
+            comparisons[destination].forEach(comp => {
+                const card = document.createElement('div');
+                card.className = 'comparison-card';
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <div class="traveler-type">${comp.type}</div>
+                            <div class="experience-by">Experience by ${comp.author}</div>
+                        </div>
+                        <div class="rating">
+                            <span class="star">★</span>
+                            <span>${comp.rating}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-item">
+                            <div class="info-icon">💰</div>
+                            <div class="info-content">
+                                <div class="info-label">Budget:</div>
+                                <div class="info-value">${comp.budget}</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">⏱</div>
+                            <div class="info-content">
+                                <div class="info-label">Duration:</div>
+                                <div class="info-value">${comp.duration}</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🏠</div>
+                            <div class="info-content">
+                                <div class="info-label">Stay:</div>
+                                <div class="info-value">${comp.stay}</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Top Must-Visit:</div>
+                                <div class="info-value">
+                                    <ul class="visit-list">
+                                        ${comp.mustVisit.map(place => `<li>${place}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderComparisons('Bali');
+
+            const travelerTabs = document.querySelectorAll('.traveler-tab');
+            travelerTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    travelerTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            const viewTabs = document.querySelectorAll('.view-tab');
+            viewTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    viewTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            const destinations = ['Bali', 'Paris', 'Kyoto'];
+            let currentDestIndex = 0;
+
+            document.getElementById('comparisons-grid').addEventListener('click', function () {
+                currentDestIndex = (currentDestIndex + 1) % destinations.length;
+                const destination = destinations[currentDestIndex];
+                document.getElementById('main-heading').textContent = `Comparing Travel Experiences in ${destination}`;
+                renderComparisons(destination);
+            });
+        });
+    </script>
+</body>
+</html>

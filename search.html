@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Compare Travel Experiences</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header a {
+      text-decoration: none;
+      color: #007acc;
+      font-size: 1rem;
+    }
+
+    header h1 {
+      margin: 0.5rem 0 0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .tabs, .section-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .tab, .section-tab {
+      padding: 0.5rem 1rem;
+      background-color: #e1ecf4;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .tab.active, .section-tab.active {
+      background-color: #007acc;
+      color: white;
+    }
+
+    .cards {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: #dff5ff;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 100%;
+      max-width: 330px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .card h3 {
+      margin: 0;
+      color: #034f6d;
+    }
+
+    .card .rating {
+      float: right;
+      font-weight: bold;
+      color: #034f6d;
+    }
+
+    .card p {
+      margin: 0.4rem 0;
+    }
+
+    .card ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0 0;
+    }
+
+    .section-content {
+      display: none;
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#">&larr; Back to Explore</a>
+    <h1>Comparing Travel Experiences</h1>
+    <p style="color: #666;">Compare different travel styles based on real traveler experiences</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Travel Types -->
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('overview')">Solo Traveler</div>
+      <div class="tab" onclick="showTab('overview')">Solo Female Traveler</div>
+      <div class="tab" onclick="showTab('overview')">Budget Traveler</div>
+    </div>
+
+    <!-- Section Tabs -->
+    <div class="section-tabs">
+      <div class="section-tab active" onclick="showSection(event, 'overview')">Overview</div>
+      <div class="section-tab" onclick="showSection(event, 'accommodation')">Accommodation</div>
+      <div class="section-tab" onclick="showSection(event, 'food')">Food & Dining</div>
+      <div class="section-tab" onclick="showSection(event, 'places')">Must-Visit Places</div>
+      <div class="section-tab" onclick="showSection(event, 'tips')">Travel Tips</div>
+    </div>
+
+    <!-- Section Content -->
+    <div id="overview" class="section-content active">
+      <div class="cards">
+        <div class="card">
+          <h3>Solo Traveler <span class="rating">★ 4.6</span></h3>
+          <p>Experience by Quinn Wilson</p>
+          <p><strong>Budget:</strong> $1692 per person</p>
+          <p><strong>Duration:</strong> 4 days</p>
+          <p><strong>Stay:</strong> Mid-range Hotel / Airbnb</p>
+          <p><strong>Top Must-Visit:</strong></p>
+          <ul>
+            <li>London Eye</li>
+            <li>British Museum</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic API Sections -->
+    <div id="accommodation" class="section-content">
+      <h2>Accommodation Options</h2>
+      <div class="cards" id="accommodationResults">Loading...</div>
+    </div>
+
+    <div id="food" class="section-content">
+      <h2>Food & Dining</h2>
+      <div class="cards" id="foodResults">Loading...</div>
+    </div>
+
+    <div id="places" class="section-content">
+      <h2>Must-Visit Places</h2>
+      <div class="cards" id="placesResults">Loading...</div>
+    </div>
+
+    <div id="tips" class="section-content">
+      <h2>Travel Tips</h2>
+      <ul>
+        <li>Always carry a universal adapter for your electronics.</li>
+        <li>Try local street food to save money and enjoy authentic cuisine.</li>
+        <li>Use contactless payment for quick transit and shopping.</li>
+        <li>Book tickets for museums and attractions online in advance.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    const API_KEY = "4eac86a4db344218b1eece80209a2f0c";
+    const place = "London";
+    const lat = 51.5074;
+    const lon = -0.1278;
+
+    const categories = {
+      accommodation: "accommodation.hotel",
+      food: "catering.restaurant",
+      places: "tourism.attraction"
+    };
+
+    function showSection(event, id) {
+      document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.section-tab').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function showTab(tabName) {
+      // Logic for changing travel type (if needed)
+      // You can fetch data for different personas here
+      console.log(`Switched to tab: ${tabName}`);
+    }
+
+    function fetchPlaces(category, containerId) {
+      const url = `https://api.geoapify.com/v2/places?categories=${category}&filter=circle:${lon},${lat},3000&limit=6&apiKey=${API_KEY}`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById(containerId);
+          container.innerHTML = '';
+
+          if (!data.features.length) {
+            container.innerHTML = `<p>No results found.</p>`;
+            return;
+          }
+
+          data.features.forEach(place => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+              <h3>${place.properties.name || "Unnamed"}</h3>
+              <p><strong>Type:</strong> ${place.properties.categories?.[0] || "N/A"}</p>
+              <p><strong>Address:</strong> ${place.properties.address_line1 || "No address"}</p>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => {
+          document.getElementById(containerId).innerHTML = "<p>Error fetching data</p>";
+          console.error(err);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchPlaces(categories.accommodation, "accommodationResults");
+      fetchPlaces(categories.food, "foodResults");
+      fetchPlaces(categories.places, "placesResults");
+    });
+  </script>
+
+</body>
+</html>

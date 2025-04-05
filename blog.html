@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wonderlust Canvas - Create Blog</title>
+    <style>
+        :root {
+            --primary-color: #00acc1;
+            --primary-dark: #00838f;
+            --secondary-color: #2c3e50;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #7f8c8d;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray);
+            color: var(--secondary-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            grid-column: 1 / -1;
+        }
+        
+        h1 {
+            color: var(--secondary-color);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline {
+            color: var(--dark-gray);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .blog-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .sidebar {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            align-self: start;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 15px;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 172, 193, 0.2);
+        }
+        
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        
+        .traveler-types-container {
+            margin-top: 40px;
+        }
+        
+        .traveler-types-title {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .traveler-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .traveler-type {
+            background-color: var(--light-gray);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .traveler-type:hover {
+            background-color: #e0f7fa;
+        }
+        
+        .traveler-type.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-dark);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .photo-upload {
+            border: 2px dashed var(--medium-gray);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            background-color: rgba(0, 172, 193, 0.03);
+        }
+        
+        .photo-upload:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 172, 193, 0.05);
+        }
+        
+        .photo-upload i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .photo-upload p {
+            color: var(--dark-gray);
+            margin: 0;
+            font-size: 15px;
+        }
+        
+        .publish-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: block;
+            margin: 40px auto 0;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .publish-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 172, 193, 0.3);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                margin-top: 30px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wonderlust Canvas</h1>
+            <div class="tagline">Discover. Explore. Experience.</div>
+        </header>
+        
+        <main class="blog-form">
+            <form>
+                <div class="form-group">
+                    <label for="blog-title">Blog Title</label>
+                    <input type="text" id="blog-title" placeholder="Enter your captivating blog title">
+                </div>
+                
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" placeholder="Where did your adventure take you?">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="duration">Duration (days)</label>
+                        <input type="number" id="duration" placeholder="7">
+                    </div>
+                    <div class="form-group">
+                        <label for="cost">Approximate Cost</label>
+                        <input type="text" id="cost" placeholder="$1,500">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="accommodation">Accommodation</label>
+                    <input type="text" id="accommodation" placeholder="Hotels, hostels, Airbnb, etc.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="blog-content">Your Travel Story</label>
+                    <textarea id="blog-content" placeholder="Share your experiences, adventures, and memories... Transport your readers to this destination with vivid descriptions and personal insights."></textarea>
+                </div>
+                
+                <h3 class="section-title">Food & Dining</h3>
+                <div class="form-group">
+                    <textarea id="food-dining" placeholder="Tell us about the local cuisine, your favorite restaurants, must-try dishes, and memorable dining experiences..."></textarea>
+                </div>
+                
+                <h3 class="section-title">Travel Tips</h3>
+                <div class="form-group">
+                    <textarea id="travel-tips" placeholder="Share your tips for other travelers - best times to visit, things to avoid, money-saving advice, hidden gems, cultural etiquette..."></textarea>
+                </div>
+                
+                <h3 class="section-title">Add Photos</h3>
+                <div class="photo-upload">
+                    <i class="fas fa-camera"></i>
+                    <p>Click to upload or drag and drop your travel photos</p>
+                    <p class="small">(JPEG, PNG up to 5MB each)</p>
+                    <input type="file" id="photo-upload" style="display: none;" multiple accept="image/*">
+                </div>
+                
+                <button type="submit" class="publish-btn">Publish Blog</button>
+            </form>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="traveler-types-container">
+                <h3 class="traveler-types-title">Traveler Types</h3>
+                <p style="color: var(--dark-gray); margin-bottom: 20px; font-size: 14px;">Select which types of travelers this experience is best suited for:</p>
+                <div class="traveler-types">
+                    <div class="traveler-type">Solo</div>
+                    <div class="traveler-type">Couple</div>
+                    <div class="traveler-type">Family</div>
+                    <div class="traveler-type">Friends</div>
+                    <div class="traveler-type">Business</div>
+                    <div class="traveler-type">Backpacker</div>
+                    <div class="traveler-type">Luxury</div>
+                    <div class="traveler-type">Adventure</div>
+                    <div class="traveler-type">Senior</div>
+                    <div class="traveler-type">Student</div>
+                    <div class="traveler-type">Digital Nomad</div>
+                    <div class="traveler-type">Disabled</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <h3 style="font-size: 1.2rem; color: var(--secondary-color); margin-bottom: 15px;">Blog Preview</h3>
+                <p style="color: var(--dark-gray); font-size: 14px;">Your blog will look something like this when published:</p>
+                <div style="background-color: var(--light-gray); border-radius: 8px; padding: 20px; margin-top: 15px; border: 1px dashed var(--medium-gray);">
+                    <div style="font-weight: 600; margin-bottom: 5px;">[Blog Title]</div>
+                    <div style="font-size: 13px; color: var(--dark-gray); margin-bottom: 10px;">Destination: [Location] • Duration: [X days]</div>
+                    <div style="height: 100px; background-color: var(--medium-gray); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--dark-gray); font-size: 13px; margin-bottom: 10px;">
+                        Featured Image
+                    </div>
+                    <div style="font-size: 14px; line-height: 1.5; color: var(--secondary-color);">
+                        The first few lines of your blog content will appear here...
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <script>
+        // Enhanced script for traveler type selection
+        document.querySelectorAll('.traveler-type').forEach(type => {
+            type.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                
+                // Limit selection to 3 types max
+                const selected = document.querySelectorAll('.traveler-type.selected');
+                if (selected.length > 3) {
+                    this.classList.remove('selected');
+                    alert('Please select no more than 3 traveler types for best results.');
+                }
+            });
+        });
+        
+        // Handle photo upload click with visual feedback
+        const photoUpload = document.querySelector('.photo-upload');
+        const fileInput = document.getElementById('photo-upload');
+        
+        photoUpload.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                photoUpload.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                    <p>${this.files.length} photo(s) selected</p>
+                    <p class="small">Click to change selection</p>
+                `;
+            }
+        });
+        
+        // Add drag and drop functionality
+        photoUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            photoUpload.style.borderColor = 'var(--primary-color)';
+            photoUpload.style.backgroundColor = 'rgba(0, 172, 193, 0.1)';
+        });
+        
+        photoUpload.addEventListener('dragleave', () => {
+            photoUpload.style.borderColor = 'var(--medium-gray)';
+            photoUpload.style.backgroundColor = 'rgba(0, 172, 193, 0.03)';
+        });
+        
+        photoUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            photoUpload.style.borderColor = 'var(--medium-gray)';
+            photoUpload.style.backgroundColor = 'rgba(0, 172, 193, 0.03)';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                photoUpload.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                    <p>${e.dataTransfer.files.length} photo(s) selected</p>
+                    <p class="small">Click to change selection</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

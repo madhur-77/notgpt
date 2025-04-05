@@ -1,0 +1,522 @@
+/* Reset some basic elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navbar styling */
+.navbar {
+    background-color: white;
+    height: 60px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar-brand a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-end {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-item {
+    color: #333;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+/* Icon styling */
+.navbar-item i {
+    margin-right: 6px;
+}
+
+/* Explore and Search styling with hover effects */
+.explore:hover, .search:hover {
+    background-color: #e0f0ff; /* Light blueish background on hover */
+    color: #0066cc; /* Text color changes on hover */
+}
+
+/* Login has border as specified */
+.login {
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.login:hover {
+    border-color: #999;
+}
+
+/* Signup has light blueish background as specified */
+.signup {
+    background-color: #e0f0ff;
+}
+
+.signup:hover {
+    background-color: #bfe0ff; /* Slightly darker on hover */
+}
+
+/* Banner section styling */
+.banner {
+    height: 600px;
+    width: 100%;
+    background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    margin-top: 60px; /* To account for fixed navbar */
+    position: relative;
+}
+
+/* Removed the ::before filter overlay that was here */
+
+.banner-content {
+    max-width: 800px;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+.banner-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner-subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Search container styling */
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search-button {
+    position: absolute;
+    right: 5px;
+    height: 42px;
+    width: 80px;
+    border: none;
+    background-color: #0066cc;
+    color: white;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-button:hover {
+    background-color: #0055aa;
+}
+
+/* Features section styling */
+.features-section {
+    padding: 80px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 60px;
+    color: #333;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #0066cc;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.feature-item {
+    flex: 1 1 250px;
+    max-width: 280px;
+    padding: 20px;
+}
+
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    background-color: #e0f0ff;
+    color: #0066cc;
+    font-size: 36px;
+    transition: transform 0.3s;
+}
+
+.feature-item:hover .feature-icon {
+    transform: scale(1.1);
+    background-color: #0066cc;
+    color: white;
+}
+
+.feature-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.feature-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* Destinations section styling */
+.destinations-section {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: white;
+}
+
+.destinations-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    gap: 30px;
+}
+
+.destination-card {
+    flex: 1 1 250px;
+    max-width: 280px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.destination-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.destination-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.destination-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 15px;
+}
+
+.destination-price {
+    background-color: #0066cc;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.destination-content {
+    padding: 20px;
+    text-align: left;
+}
+
+.destination-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.destination-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    height: 85px; /* Fixed height for description */
+}
+
+.destination-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #888;
+}
+
+.destination-meta i {
+    color: #0066cc;
+    margin-right: 5px;
+}
+
+.explore-more-container {
+    margin-top: 50px;
+}
+
+.explore-more-btn {
+    display: inline-block;
+    background-color: #0066cc;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.explore-more-btn:hover {
+    background-color: #0055aa;
+    transform: scale(1.05);
+}
+
+/* Footer styling */
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding-top: 70px;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 50px;
+}
+
+.footer-info {
+    flex: 1 1 500px;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+.footer-logo h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.footer-info p {
+    margin-bottom: 25px;
+    color: #ccc;
+    line-height: 1.7;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.social-icon:hover {
+    background-color: #0066cc;
+}
+
+.footer-subscribe {
+    flex: 1 1 400px;
+    max-width: 450px;
+}
+
+.footer-subscribe h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-subscribe p {
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.subscribe-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.subscribe-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+}
+
+.subscribe-btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.subscribe-btn:hover {
+    background-color: #0055aa;
+}
+
+.footer-bottom {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin-bottom: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #0066cc;
+}
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .banner-title {
+        font-size: 36px;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+    }
+    
+    .footer-info, .footer-subscribe {
+        max-width: 100%;
+    }
+}
+.search-destination-btn {
+    display: inline-block;
+    background-color: #0066cc;
+    color: white;
+    padding: 16px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search-destination-btn:hover {
+    background-color: #0055aa;
+    transform: scale(1.05);
+}
+
+.search-destination-btn i {
+    margin-right: 8px;
+}

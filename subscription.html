@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Subscription - Wanderlust Canvas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #007c91;
+      margin-bottom: 1rem;
+      font-size: 2.8rem;
+    }
+
+    .intro {
+      font-size: 1.2rem;
+      color: #444;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .plan-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .plan {
+      background: #ffffff;
+      padding: 2rem;
+      margin: 1rem;
+      border-radius: 16px;
+      width: 300px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-align: left;
+      position: relative;
+    }
+
+    .plan:hover {
+      background-color: #d4f1f4;
+      transform: scale(1.03);
+    }
+
+    .plan h2 {
+      color: #0097a7;
+      margin-top: 0;
+    }
+
+    .plan p.price {
+      font-size: 1.2rem;
+      margin: 0.5rem 0 1rem;
+      color: #333;
+    }
+
+    .features-list {
+      list-style: none;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-list li {
+      margin-bottom: 0.6rem;
+      color: #444;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .features-list li::before {
+      content: '✓';
+      color: #00bcd4;
+      position: absolute;
+      left: -1rem;
+    }
+
+    .tag {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background-color: #ff4081;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .tag.recommended {
+      background-color: #4caf50;
+    }
+
+    button {
+      background: #00bcd4;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: block;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #0097a7;
+    }
+
+    .faq-section {
+      max-width: 900px;
+      margin: 4rem auto 2rem;
+      padding: 2rem;
+      background: #f0fbff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .faq-section h2 {
+      text-align: center;
+      color: #007b9e;
+      margin-bottom: 1.5rem;
+    }
+
+    .question {
+      margin: 1rem 0;
+      cursor: pointer;
+      padding: 1rem;
+      background: #ffffff;
+      border: 1px solid #d0eaf7;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+
+    .question:hover {
+      background: #e1f5fe;
+    }
+
+    .question h4 {
+      margin: 0;
+      color: #006064;
+    }
+
+    .answer {
+      display: none;
+      margin-top: 0.5rem;
+      color: #444;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .plan-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .plan {
+        width: 85%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Subscribe to Wanderlust Canvas</h1>
+    <p class="intro">Unlock a world of travel stories, expert tips, and destination insights. Choose the best plan that fits your journey!</p>
+
+    <div class="plan-container">
+      <div class="plan">
+        <div class="tag">Most Popular</div>
+        <h2>Monthly Plan</h2>
+        <p class="price">₹199/month</p>
+        <ul class="features-list">
+          <li>Access to all travel blogs & guides</li>
+          <li>Exclusive destination picks</li>
+          <li>Basic support</li>
+          <li>Ad-free browsing</li>
+        </ul>
+        <button onclick="goToPayment('Monthly')">Get Subscription</button>
+      </div>
+
+      <div class="plan">
+        <h2>Quarterly Plan</h2>
+        <p class="price">₹499/3 months</p>
+        <ul class="features-list">
+          <li>Everything in Monthly Plan</li>
+          <li>Priority access to travel deals</li>
+          <li>Quarterly bonus content</li>
+          <li>Email support</li>
+        </ul>
+        <button onclick="goToPayment('Quarterly')">Get Subscription</button>
+      </div>
+
+      <div class="plan">
+        <div class="tag recommended">Recommended</div>
+        <h2>Yearly Plan</h2>
+        <p class="price">₹1499/year</p>
+        <ul class="features-list">
+          <li>Everything in Quarterly Plan</li>
+          <li>Free seasonal e-guides</li>
+          <li>Personalized recommendations</li>
+          <li>24/7 premium support</li>
+        </ul>
+        <button onclick="goToPayment('Yearly')">Get Subscription</button>
+      </div>
+    </div>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq">
+        <div class="question" onclick="toggleAnswer(this)">
+          <h4>What does each plan include?</h4>
+          <p class="answer">All plans include access to curated travel content, guides, and recommendations. Higher plans offer additional perks like priority support and bonus content.</p>
+        </div>
+        <div class="question" onclick="toggleAnswer(this)">
+          <h4>Can I cancel anytime?</h4>
+          <p class="answer">Yes, you can cancel anytime from your profile settings. Your plan will stay active until the end of the paid period.</p>
+        </div>
+        <div class="question" onclick="toggleAnswer(this)">
+          <h4>Is my payment secure?</h4>
+          <p class="answer">Absolutely. We use encrypted and secure payment gateways to protect your data.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function goToPayment(plan) {
+      window.location.href = `payment.html?plan=${plan}`;
+    }
+
+    function toggleAnswer(el) {
+      const answer = el.querySelector('.answer');
+      answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment</title>
+  <style>
+    body { font-family: sans-serif; background: #f4faff; padding: 2rem; }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label { display: block; margin: 1rem 0 0.5rem; }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 1rem;
+      background: #00bcd4;
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Payment Details</h2>
+    <form id="paymentForm">
+      <label>Name</label>
+      <input type="text" id="name" required />
+
+      <label>Card Number</label>
+      <input type="text" id="cardNumber" required />
+
+      <label>Expiry Date</label>
+      <input type="text" id="expiry" placeholder="MM/YY" required />
+
+      <label>CVV</label>
+      <input type="password" id="cvv" required />
+
+      <label>Payment Method</label>
+      <select id="paymentMethod">
+        <option value="Card">Card</option>
+        <option value="GPay">Google Pay</option>
+        <option value="PhonePe">PhonePe</option>
+        <option value="UPI">UPI</option>
+      </select>
+
+      <label>Plan</label>
+      <input type="text" id="plan" readonly />
+
+      <button type="submit">Submit Payment</button>
+    </form>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('plan').value = urlParams.get('plan') || 'Monthly';
+
+    document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById('name').value,
+        cardNumber: document.getElementById('cardNumber').value,
+        expiry: document.getElementById('expiry').value,
+        cvv: document.getElementById('cvv').value,
+        paymentMethod: document.getElementById('paymentMethod').value,
+        plan: document.getElementById('plan').value,
+      };
+
+      try {
+        const res = await fetch('http://localhost:5000/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        alert(result.message);
+        window.location.href = 'thankyou.html'; // optional
+      } catch (err) {
+        alert('Payment failed.');
+      }
+    });
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Authentication System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f7faff;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+      max-width: 90%;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      color: #555;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #4a90e2;
+      background-color: #fff;
+      border-color: #4a90e2;
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, #4a90e2, #2171cd);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .links, .signup-links, .forgot-links {
+      margin-top: 25px;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+    }
+    a {
+      color: #4a90e2;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+    }
+    a:hover {
+      background-color: #e6f0ff;
+      color: #2171cd;
+    }
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div id="login-page" class="page active">
+    <div class="container">
+      <h1>Welcome Back</h1>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="login-user-id">User ID</label>
+          <input type="text" id="login-user-id" required>
+        </div>
+        <div class="input-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required>
+        </div>
+        <div class="input-group">
+          <label for="role-select">Select Role</label>
+          <select id="role-select" required>
+            <option value="">-- Select Role --</option>
+            <option value="viewer">Viewer</option>
+            <option value="creator">Creator</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+      <div class="links">
+        <a id="go-to-signup">Sign Up</a>
+        <a id="go-to-forgot">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Page -->
+  <div id="signup-page" class="page">
+    <div class="container">
+      <h1>Create Account</h1>
+      <form id="signup-form">
+        <div class="input-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" required>
+        </div>
+        <div class="input-group">
+          <label for="signup-user-id">User ID</label>
+          <input type="text" id="signup-user-id" required>
+        </div>
+        <div class="input-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" required>
+        </div>
+        <div class="input-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" required>
+        </div>
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </form>
+      <div class="signup-links">
+        <a id="signup-to-login">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forgot Password Page -->
+  <div id="forgot-page" class="page">
+    <div class="container">
+      <h1>Reset Password</h1>
+      <p>Enter your user ID and we'll send you reset instructions.</p>
+      <form id="forgot-form">
+        <div class="input-group">
+          <label for="forgot-user-id">User ID</label>
+          <input type="text" id="forgot-user-id" required>
+        </div>
+        <button type="submit" class="submit-btn">Send Reset Link</button>
+      </form>
+      <div class="forgot-links">
+        <a id="forgot-to-login">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Page references
+      const loginPage = document.getElementById('login-page');
+      const signupPage = document.getElementById('signup-page');
+      const forgotPage = document.getElementById('forgot-page');
+
+      // Navigation buttons
+      document.getElementById('go-to-signup').onclick = () => showPage(signupPage);
+      document.getElementById('go-to-forgot').onclick = () => showPage(forgotPage);
+      document.getElementById('signup-to-login').onclick = () => showPage(loginPage);
+      document.getElementById('forgot-to-login').onclick = () => showPage(loginPage);
+
+      function showPage(pageToShow) {
+        [loginPage, signupPage, forgotPage].forEach(page => page.classList.remove('active'));
+        pageToShow.classList.add('active');
+      }
+
+      // Form handlers
+      document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const role = document.getElementById('role-select').value;
+
+        if (role === "viewer") {
+          window.location.href = "index.html";
+        } else if (role === "creator") {
+          window.location.href = "index2.html";
+        } else {
+          alert("Please select a role.");
+        }
+      });
+
+      document.getElementById('signup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Signup successful!');
+        showPage(loginPage);
+      });
+
+      document.getElementById('forgot-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Reset instructions sent!');
+        showPage(loginPage);
+      });
+    });
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const fullName = document.getElementById('full-name').value;
+  const userId = document.getElementById('signup-user-id').value;
+  const password = document.getElementById('signup-password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  if (password !== confirmPassword) {
+    return alert("Passwords do not match.");
+  }
+
+  const res = await fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fullName, userId, password })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  if (res.status === 201) {
+    window.location.href = "index.html";
+  }
+});
+
+  </script>
+
+</body>
+</html>
